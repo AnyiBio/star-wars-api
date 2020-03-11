@@ -1,12 +1,10 @@
 "use strict";
 
-// const axios = require("axios");
-//
 require("dotenv").config();
-const webServer = require("./app/webserver");
+
+const webServer = require("./webserver");
 
 const port = process.env.PORT;
-const url = process.env.API_STARWARS;
 
 async function initApp() {
   try {

@@ -2,11 +2,12 @@
 
 const express = require("express");
 
-const {} = requiere(".routes");
+const { peopleRouter } = require("./routes");
 
 const app = express();
 
 app.use(express.json());
+app.use("/api", peopleRouter);
 
 let server = null;
 async function listen(port) {
@@ -18,7 +19,7 @@ async function listen(port) {
     server = await app.listen(port);
     return server;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     throw e;
   }
 }
