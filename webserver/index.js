@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require("express");
-
 const { peopleRouter } = require("./routes");
 
 const app = express();

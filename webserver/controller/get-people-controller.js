@@ -1,26 +1,42 @@
 "use strict";
 
+require("dotenv").config();
 const axios = require("axios");
-const url = "https://swapi.co/api/people/";
+const api = "https://swapi.co/api";
 
 async function getPeople(req, res, next) {
   const name = { ...req.body };
+
   try {
-    function mostrarResultado(axiosResponse) {
-      const item = axiosResponse.data;
-      console.log(item);
-      return item;
-    }
+    const axiosResponse = await axios.get(`${api}/people/?search=${name.name}`);
 
-    function mostrarError(err) {
-      console.error(err);
-    }
+    const people = axiosResponse.data;
 
-    axios
-      .get(url)
-      .then(mostrarResultado)
-      .catch(mostrarError);
+    const peopleName = people.results.map(item => {
+      const rawPeople = item;
+      const {
+        name,
+        birth_year,
+        gender,
+        homeworld,
+        vehicles,
+        films
+      } = rawPeople;
+      const peopleStarWars = {
+        name,
+        birth_year,
+        gender,
+        homeworld,
+        vehicles,
+        films
+      };
+      return peopleStarWars;
+    });
+
+    console.log(peopleName);
+    return res.status(200).send(peopleName);
   } catch (e) {
+    console.error("Use the Force, the person's name does not exist");
     return res.status(404).send(e);
   }
 }
