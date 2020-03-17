@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "3540a3a6-af59-43b4-969e-cbf61b2097f9",
+		"name": "SWAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get person ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47f6b0ee-eda0-4387-85cd-7e33ee76fdb7",
+						"exec": [
+							"{",
+							"\t\"name\": \"Leia\"",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Leia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/people",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"people"
+					]
+				},
+				"description": "Get Details of person of SWAPI"
+			},
+			"response": [
+				{
+					"name": "Get person Leia",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Leia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/api/people",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"people"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "437"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1b5-fEaMgadoksvuboW4RNSYl9gb04A\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 17 Mar 2020 22:45:30 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Leia Organa\",\n    \"birth_year\": \"19BBY\",\n    \"gender\": \"female\",\n    \"films\": [\n        {\n            \"title\": \"The Empire Strikes Back\",\n            \"release_date\": \"1980-05-17\"\n        },\n        {\n            \"title\": \"Revenge of the Sith\",\n            \"release_date\": \"2005-05-19\"\n        },\n        {\n            \"title\": \"Return of the Jedi\",\n            \"release_date\": \"1983-05-25\"\n        },\n        {\n            \"title\": \"A New Hope\",\n            \"release_date\": \"1977-05-25\"\n        },\n        {\n            \"title\": \"The Force Awakens\",\n            \"release_date\": \"2015-12-11\"\n        }\n    ],\n    \"planet_name\": \"Alderaan\",\n    \"fastest_vehicle_driven\": \"Imperial Speeder Bike\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get person ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Luke\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/api/people",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"api",
+						"people"
+					]
+				},
+				"description": "Get person Luke"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
