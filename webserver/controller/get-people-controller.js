@@ -28,11 +28,11 @@ async function getPeople(req, res, next) {
     });
 
     const axiosResponsesFilms = await Promise.all(filmsTitle);
-    const filmsName = axiosResponsesFilms.map(item => {
+    const films = axiosResponsesFilms.map(item => {
       const rawFilms = item.data;
       const { title, release_date } = rawFilms;
-      const films = { title, release_date };
-      return films;
+      const filmsData = { title, release_date };
+      return filmsData;
     });
 
     const homeworldData = axios.get(people.results[0].homeworld);
@@ -41,7 +41,7 @@ async function getPeople(req, res, next) {
     const planetName = axiosResponsesPlanet.map(item => {
       const rawPlanet = item.data;
       const { name } = rawPlanet;
-      const planet = { name };
+      const planet = { planet_name: name };
       return planet;
     });
 
@@ -54,22 +54,45 @@ async function getPeople(req, res, next) {
     const vehiclesName = axiosResponsesVehicle.map(item => {
       const rawVehicle = item.data;
       const { name, max_atmosphering_speed } = rawVehicle;
-      const vehicles = { name, max_atmosphering_speed };
+      const vehicles = { fastest_vehicle_driven: name, max_atmosphering_speed };
       return vehicles;
     });
 
-    const fastest_vehicle_driven = vehiclesName.reduce(function(prev, curr) {
-      return prev.max_atmosphering_speed > curr.max_atmosphering_speed
-        ? prev
-        : curr;
+    const starshipData = [];
+    people.results[0].starships.forEach(element => {
+      starshipData.push(axios.get(element));
     });
 
-    console.log(fastest_vehicle_driven);
-    console.log(planetName);
-    console.log(filmsName);
-    console.log(peopleName);
+    const axiosResponsesStarship = await Promise.all(starshipData);
+    const starshipName = axiosResponsesStarship.map(item => {
+      const rawStarship = item.data;
+      const { name, max_atmosphering_speed } = rawStarship;
+      const starships = {
+        fastest_vehicle_driven: name,
+        max_atmosphering_speed
+      };
+      return starships;
+    });
 
-    return res.status(200).send(peopleName);
+    Array.prototype.push.apply(vehiclesName, starshipName);
+
+    console.log(vehiclesName);
+
+    const fastest_vehicle_driven = vehiclesName.sort(
+      (a, b) => b.max_atmosphering_speed - a.max_atmosphering_speed
+    )[0];
+
+    const peopleFilm = Object.assign(
+      peopleName[0],
+      { films: films },
+      planetName[0],
+      {
+        fastest_vehicle_driven: fastest_vehicle_driven.fastest_vehicle_driven
+      }
+    );
+
+    console.log(peopleFilm);
+    return res.status(200).send(peopleFilm);
   } catch (e) {
     console.error("Use the Force, the person's name does not exist");
     return res.status(404).send(e);
